@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'; // Importando a autenticação do Firebase
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(''); // Estado para lidar com erros
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Redireciona para a página inicial
-    navigate('/');
+    const auth = getAuth();
+    
+    try {
+      // Tenta autenticar o usuário com email e senha
+      await signInWithEmailAndPassword(auth, email, password);
+      // Redireciona para a página inicial
+      navigate('/');
+    } catch (err) {
+      // Exibe o erro caso a autenticação falhe
+      setError('Email ou senha incorretos. Tente novamente!');
+    }
   };
 
   const handleRegisterRedirect = () => {
@@ -20,6 +31,8 @@ const LoginPage = () => {
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="bg-white p-8 rounded shadow-lg w-96">
         <h2 className="text-2xl font-semibold mb-4">Login</h2>
+
+        {error && <div className="text-red-500 text-sm mb-4">{error}</div>} {/* Exibe mensagem de erro */}
 
         <form onSubmit={handleLogin}>
           {/* Campo Email */}

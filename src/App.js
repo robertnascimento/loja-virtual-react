@@ -1,12 +1,14 @@
 // src/App.js
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import ProductPage from './pages/ProductPage';
-import CartPage from './pages/CartPage';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import HomePage from './pages/public/HomePage';
+import LoginPage from './pages/public/LoginPage';
+import RegisterPage from './pages/public/RegisterPage';
+import ProductPage from './pages/public/ProductListPage';
+import CartPage from './pages/public/CartPage';
+import Header from './components/common/Header';
+import Footer from './components/common/Footer';
+import AddProductPage from './pages/protected/AddProductPage';
+import AddCategoryPage from './pages/protected/AddCategoryPage';
 
 
 const App = () => {
@@ -19,6 +21,8 @@ const App = () => {
         <Route path="/cart" element={<CartPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/products" element={<ProductPage />} />
+        <Route path="/add-product" element={<AddProductPage />} />
+        <Route path="/cadastrar-categoria" element={<AddCategoryPage />} />
       </Routes>
       <Footer />
     </Router>
